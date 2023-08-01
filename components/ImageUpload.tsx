@@ -36,6 +36,7 @@ disabled}) => {
         maxFiles: 1,
         disabled,
         accept: {
+            'image/jpg': [],
             'image/jpeg': [],
             'image/png': [],
         }
