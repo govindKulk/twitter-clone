@@ -13,7 +13,7 @@ interface PostFeedProps {
 
 const PostFeed: React.FC<PostFeedProps> = ({ userId }) => {
 
-    const { data: posts = [], mutate: mutatePosts } = usePosts();
+    const { data: posts = []} = usePosts();
    
     return (
 
