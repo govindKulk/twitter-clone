@@ -3,6 +3,11 @@ import { NextApiRequest, NextApiResponse } from "next";
 
 import prisma from '@/libs/prismadb';
 import serverAuth from '@/libs/serverAuth';
+export const config = {
+    api: {
+      responseLimit: false,
+    },
+  }
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     if (req.method !== 'POST' && req.method !== "GET") {
