@@ -16,7 +16,7 @@ import { usePostsContext } from '@/libs/PostContext';
 interface PostItemProps {
   post: Record<string, any>;
   userId?: string;
-  triggerDelete: () => void
+  triggerDelete?: () => void
 }
 const PostItem: React.FC<PostItemProps> = ({
   post,
