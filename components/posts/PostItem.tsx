@@ -67,7 +67,10 @@ const PostItem: React.FC<PostItemProps> = ({
     ev.stopPropagation();
     let url = `/api/posts/${post.id}`;
     await axios.delete(url)
-    triggerDelete();
+
+    if(triggerDelete){
+      triggerDelete();
+    }
     toast.success("comment delted");
   }
 
