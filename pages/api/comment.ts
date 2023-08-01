@@ -34,7 +34,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       
         }else if(req.method === "DELETE"){
             const {commentId} = req.query;
-            console.log(commentId)
             const comment = await prisma.comment.findUnique({
                 where: {
                     id: commentId as string,

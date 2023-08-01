@@ -5,9 +5,9 @@ import prisma from '@/libs/prismadb';
 import serverAuth from '@/libs/serverAuth';
 export const config = {
     api: {
-      responseLimit: false,
+        responseLimit: false,
     },
-  }
+}
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     if (req.method !== 'POST' && req.method !== "GET") {
@@ -30,7 +30,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 }
             });
             console.log("Govind ", post);
-            return res.status(200).json({post});
+            return res.status(200).json({ post });
         }
         else if (req.method === "GET") {
             const { userId, page, perPage } = req.query;
@@ -40,7 +40,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             let posts;
             if (userId && typeof userId === 'string') {
 
-                if(!currentPage || !perPage){
+                if (!currentPage || !perPage) {
                     posts = await prisma.post.findMany({
                         where: {
                             userId: userId
@@ -53,26 +53,26 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                     })
                 }
                 posts = await prisma.post.findMany({
-                    
+
                     where: {
                         userId
                     },
                     include: {
                         user: true,
                         comments: true,
-                        
+
 
                     },
                     orderBy: {
                         createdAt: 'desc'
                     },
-                    skip: (currentPage - 1)*postsPerPage,
+                    skip: (currentPage - 1) * postsPerPage,
                     take: postsPerPage
-                
+
                 })
             } else {
 
-                if(!currentPage || !perPage){
+                if (!currentPage || !perPage) {
                     posts = await prisma.post.findMany({
                         include: {
                             user: true,
@@ -91,13 +91,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                     orderBy: {
                         createdAt: 'desc'
                     },
-                    skip: (currentPage-1)*postsPerPage,
+                    skip: (currentPage - 1) * postsPerPage,
                     take: postsPerPage
                 })
             }
             const totalPosts = await prisma.post.count({})
-            return res.status(200).json({posts, totalPosts});
+            return res.status(200).json({ posts, totalPosts });
         }
+       
 
 
 

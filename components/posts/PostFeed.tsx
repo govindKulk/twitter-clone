@@ -18,7 +18,7 @@ const PostFeed: React.FC<PostFeedProps> = ({ userId }) => {
 
     const [currentPage, setCurrentPage] = useState(1)
     const {allPosts, setAllPosts}= usePostsContext()
-    let { data: posts = [], totalPosts, isLoading, mutate: mutatePosts } = usePosts(currentPage, 10);
+    let { data: posts = [], totalPosts, isLoading, mutate: mutatePosts } = usePosts(currentPage, 10, userId);
     const hasPosts = useMemo(() => {
         return totalPosts !== currentPage * 10 || totalPosts < currentPage * 10
     }, [totalPosts, currentPage])
@@ -50,7 +50,9 @@ const PostFeed: React.FC<PostFeedProps> = ({ userId }) => {
         }
     },[currentPage])
 
-    
+    const triggerDelete = () => {
+        mutatePosts();
+    }    
 
     return (
 
@@ -64,7 +66,7 @@ const PostFeed: React.FC<PostFeedProps> = ({ userId }) => {
 
             </div>
             {posts.map((post: Record<string, any>) =>
-                <PostItem userId={userId} key={post.id} post={post} />
+                <PostItem userId={userId} key={post.id} post={post} triggerDelete={triggerDelete} />
             )}
         </div>
     )
