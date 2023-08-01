@@ -14,15 +14,7 @@ interface PostFeedProps {
 const PostFeed: React.FC<PostFeedProps> = ({ userId }) => {
 
     const { data: posts = [], mutate: mutatePosts } = usePosts();
-    useEffect(() => {
-        const timeoutId = setTimeout(() => {
-          mutatePosts();
-        }, 200);
-    
-        return () => clearTimeout(timeoutId);
-      }, [mutatePosts]);
-    
-    console.log(posts)
+   
     return (
 
 
