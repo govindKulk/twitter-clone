@@ -2,6 +2,8 @@
 
 import usePosts from "@/hooks/usePosts";
 import PostItem from "./PostItem";
+import { useEffect, useState } from "react";
+
 
 interface PostFeedProps {
     userId?: string
@@ -9,15 +11,23 @@ interface PostFeedProps {
 
 
 
-const PostFeed: React.FC<PostFeedProps> = ({userId}) => {
+const PostFeed: React.FC<PostFeedProps> = ({ userId }) => {
 
-    const { data: posts = [] } = usePosts(userId);
+    const { data: posts = [], mutate: mutatePosts } = usePosts();
+    useEffect(() => {
+        const timeoutId = setTimeout(() => {
+          mutatePosts();
+        }, 200);
+    
+        return () => clearTimeout(timeoutId);
+      }, [mutatePosts]);
+    
     console.log(posts)
     return (
 
 
         <div>
-            {posts.map((post: Record<string, any>,) => 
+            {posts.map((post: Record<string, any>,) =>
                 <PostItem userId={userId} key={post.id} post={post} />
             )}
         </div>
