@@ -23,29 +23,65 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 data: {
                     body,
                     userId: currentUser.id
+                },
+                include: {
+                    user: true,
+                    comments: true
                 }
             });
-
-            return res.status(200).json(post);
+            console.log("Govind ", post);
+            return res.status(200).json({post});
         }
         else if (req.method === "GET") {
-            const { userId } = req.query;
+            const { userId, page, perPage } = req.query;
+            const currentPage = parseInt(page as string, 10) || 1
+            const postsPerPage = parseInt(perPage as string, 10) || 10
+
             let posts;
             if (userId && typeof userId === 'string') {
+
+                if(!currentPage || !perPage){
+                    posts = await prisma.post.findMany({
+                        where: {
+                            userId: userId
+                        },
+                        include: {
+                            user: true,
+                            comments: true
+                        },
+                        take: 10
+                    })
+                }
                 posts = await prisma.post.findMany({
+                    
                     where: {
                         userId
                     },
                     include: {
                         user: true,
                         comments: true,
+                        
 
                     },
                     orderBy: {
                         createdAt: 'desc'
-                    }
+                    },
+                    skip: (currentPage - 1)*postsPerPage,
+                    take: postsPerPage
+                
                 })
             } else {
+
+                if(!currentPage || !perPage){
+                    posts = await prisma.post.findMany({
+                        include: {
+                            user: true,
+                            comments: true
+                        },
+                        take: 10
+                    })
+                }
+
                 posts = await prisma.post.findMany({
                     include: {
                         user: true,
@@ -54,11 +90,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                     },
                     orderBy: {
                         createdAt: 'desc'
-                    }
+                    },
+                    skip: (currentPage-1)*postsPerPage,
+                    take: postsPerPage
                 })
             }
-
-            return res.status(200).json(posts);
+            const totalPosts = await prisma.post.count({})
+            return res.status(200).json({posts, totalPosts});
         }
 
 

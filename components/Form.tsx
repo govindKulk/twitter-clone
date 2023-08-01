@@ -8,6 +8,7 @@ import { toast } from 'react-hot-toast'
 import Button from './Button';
 import Avatar from './Avatar';
 import usePost from '@/hooks/usePost';
+import { usePostsContext } from '@/libs/PostContext';
 
 interface FormProps {
     placeholder: string;
@@ -30,6 +31,7 @@ const Form: React.FC<FormProps> = ({
 
     const [body, setBody] = useState('');
     const [isLoading, setIsLoading] = useState(false);
+    const {setAllPosts} = usePostsContext();
 
     const onSubmit = useCallback(async () => {
 
@@ -37,12 +39,13 @@ const Form: React.FC<FormProps> = ({
 
             setIsLoading(true)
             const url = isComment ? `/api/comment?postId=${postId}`: '/api/posts'
-            await axios.post(url, { body });
+            const post : Record<string,any> = await axios.post(url, { body }) ;
 
+            setAllPosts(prev => [post, prev])
             toast.success("Tweet created");
 
             setBody('');
-            mutatePosts();
+        
             isComment && mutatePost();
 
         } catch (error) {
@@ -53,7 +56,7 @@ const Form: React.FC<FormProps> = ({
             setIsLoading(false);
         }
 
-    },[body, mutatePosts, isComment, mutatePost, postId])
+    },[body, mutatePosts, isComment, mutatePost, postId, isLoading])
 
     return (
         <div className="border-b-[1px] border-neutral-800 px-5 py-2">

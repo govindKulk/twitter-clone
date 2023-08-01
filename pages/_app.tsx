@@ -7,6 +7,7 @@ import Layout from '@/components/Layout'
 import LoginModal from '@/components/Modal/LoginModel'
 import RegisterModal from '@/components/Modal/RegisterModal'
 import EditModal from '@/components/Modal/EditModel'
+import { PostsProvider } from '@/libs/PostContext'
 
 
 export default function App({ Component, pageProps }: AppProps) {
@@ -17,7 +18,10 @@ export default function App({ Component, pageProps }: AppProps) {
     <RegisterModal />
     <LoginModal/>
     <Layout>
+      <PostsProvider>
       <Component {...pageProps} />
+
+      </PostsProvider>
     </Layout>
 
   </SessionProvider>
