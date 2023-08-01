@@ -74,7 +74,7 @@ const Modal: React.FC<ModalProps> = ({
           flex 
           flex-col 
           w-full 
-          bg-black 
+          bg-blue-200 
           outline-none 
           focus:outline-none
           "
@@ -88,7 +88,7 @@ const Modal: React.FC<ModalProps> = ({
             rounded-t
             "
           >
-            <h3 className="text-3xl font-semibold text-white">
+            <h3 className="text-3xl font-semibold text-black">
               {title}
             </h3>
             <button
@@ -96,7 +96,7 @@ const Modal: React.FC<ModalProps> = ({
                 p-1 
                 ml-auto
                 border-0 
-                text-white 
+                text-black 
                 hover:opacity-70
                 transition
               "
@@ -111,7 +111,7 @@ const Modal: React.FC<ModalProps> = ({
           </div>
           {/*footer*/}
           <div className="flex flex-col gap-2 p-10">
-            <Button disabled={disabled} label={actionLabel} secondary fullWidth large onClick={handleSubmit} />
+            <Button disabled={disabled} label={actionLabel} fullWidth large onClick={handleSubmit} />
             {footer}
           </div>
         </div>

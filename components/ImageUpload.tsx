@@ -42,7 +42,7 @@ disabled}) => {
         }
     });
     return (
-        <div {...getRootProps({className: 'w-full p-4 text-white text-center border-2 border-dotted rounded-md border-neutral-700 cursor-pointer hover:opacity-70'})}>
+        <div {...getRootProps({className: 'w-full p-4 text-black text-center border-2 border-dotted rounded-md border-neutral-700 cursor-pointer hover:opacity-70'})}>
       <input {...getInputProps()} />
       {base64 ? (
         <div className="flex items-center justify-center">
@@ -59,7 +59,7 @@ disabled}) => {
           
         </div>
       ) : (
-        <p className="text-white">{label}</p>
+        <p className="text-black">{label}</p>
       )}
     </div>
     )

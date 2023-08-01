@@ -91,12 +91,12 @@ const RegisterModal = () => {
   )
 
   const footerContent = (
-    <div className="text-neutral-400 text-center mt-4">
+    <div className="text-neutral-700 text-center mt-4">
       <p>Already have an account?
         <span 
           onClick={onToggle} 
           className="
-            text-white 
+            text-black 
             cursor-pointer 
             hover:underline
           "

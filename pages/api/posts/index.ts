@@ -36,7 +36,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             const { userId, page, perPage } = req.query;
             const currentPage = parseInt(page as string, 10) || 1
             const postsPerPage = parseInt(perPage as string, 10) || 10
-
+            let totalPosts;
             let posts;
             if (userId && typeof userId === 'string') {
 
@@ -70,6 +70,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                     take: postsPerPage
 
                 })
+
+                totalPosts = await prisma.post.count({
+                    where: {
+                        userId
+                    }
+                })
             } else {
 
                 if (!currentPage || !perPage) {
@@ -94,8 +100,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                     skip: (currentPage - 1) * postsPerPage,
                     take: postsPerPage
                 })
+                totalPosts = await prisma.post.count({})
             }
-            const totalPosts = await prisma.post.count({})
+            
             return res.status(200).json({ posts, totalPosts });
         }
        

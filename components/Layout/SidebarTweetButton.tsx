@@ -1,16 +1,17 @@
 import useLoginModal from '@/hooks/useLoginModal'
+import Link from 'next/link';
 import { useCallback } from 'react';
 import {FaFeather} from 'react-icons/fa'
 
 const SideBarTweeButton = ( ) => {
   const loginModal = useLoginModal();
   const onClick = useCallback(()=>{
-    loginModal.onOpen();
+    
   },[loginModal])
 
 
     return (
-    <div onClick={onClick}>
+    <Link href="/">
       <div className="
         mt-6
         lg:hidden 
@@ -45,13 +46,13 @@ const SideBarTweeButton = ( ) => {
             lg:block 
             text-center
             font-semibold
-            text-white 
+            text-black 
             text-[20px]
         ">
           Tweet
         </p>
       </div>
-    </div>
+    </Link>
     )
 }
 

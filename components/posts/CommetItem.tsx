@@ -52,7 +52,7 @@ const CommentItem: React.FC<CommentItemProps> = ({ comment = {} }) => {
         border-neutral-800 
         p-5 
         cursor-pointer 
-        hover:bg-neutral-900 
+        hover:bg-neutral-200 
         transition
       ">
             <div className="flex flex-row items-start gap-3">
@@ -62,7 +62,7 @@ const CommentItem: React.FC<CommentItemProps> = ({ comment = {} }) => {
                         <p
                             onClick={goToUser}
                             className="
-                text-white 
+                text-black 
                 font-semibold 
                 cursor-pointer 
                 hover:underline
@@ -87,7 +87,7 @@ const CommentItem: React.FC<CommentItemProps> = ({ comment = {} }) => {
                             <AiOutlineDelete color='white' size={20} />
                         </span>}
                     </div>
-                    <div className="text-white mt-1 ">
+                    <div className="text-black mt-1 ">
                         {comment.body}
 
                     </div>

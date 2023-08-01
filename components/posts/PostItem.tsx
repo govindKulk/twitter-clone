@@ -84,7 +84,7 @@ const PostItem: React.FC<PostItemProps> = ({
           border-neutral-800 
           p-5 
           cursor-pointer 
-          hover:bg-neutral-900 
+          hover:bg-neutral-100 
           transition
         ">
       <div className="flex flex-row items-start gap-3">
@@ -94,7 +94,7 @@ const PostItem: React.FC<PostItemProps> = ({
             <p
               onClick={goToUser}
               className="
-                  text-white 
+                  text-black 
                   font-semibold 
                   cursor-pointer 
                   hover:underline
@@ -115,11 +115,11 @@ const PostItem: React.FC<PostItemProps> = ({
             <span className="text-neutral-500 text-sm">
               {createdAt}
             </span>
-           { isOwner && <span className='self-end' onClick={onDelete}>
-                <AiFillDelete size={20} color='white' />
+           { isOwner && <span className='self-end rounded justify-center items-center flex hover:bg-neutral-400' onClick={onDelete}>
+                <AiFillDelete size={20} color='lightcoral' />
             </span> }
           </div>
-          <div className="text-white mt-1">
+          <div className="text-black mt-1">
             {post?.body}
           </div>
           <div className="flex flex-row items-center mt-3 gap-10">
