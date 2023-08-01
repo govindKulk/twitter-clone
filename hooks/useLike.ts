@@ -10,7 +10,7 @@ import usePosts from "./usePosts";
 const useLike = ({ postId, userId }: { postId: string, userId?: string }) => {
   const { data: currentUser } = useCurrentUser();
   const { data: fetchedPost, mutate: mutateFetchedPost } = usePost(postId);
-  const { mutate: mutateFetchedPosts } = usePosts(userId);
+  const { mutate: mutateFetchedPosts } = usePosts(undefined, undefined, userId);
 
   const loginModal = useLoginModal();
 

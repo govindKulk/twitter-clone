@@ -2,7 +2,7 @@ import useSWR from 'swr';
 
 import fetcher from '@/libs/fetcher';
 
-const usePosts = ( currentPage?: number, perPage?: number, userId?: string,) => {
+const usePosts = ( currentPage?: number, perPage?: number, userId?: string) => {
   
   const queryParams = new URLSearchParams();
 

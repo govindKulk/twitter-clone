@@ -18,7 +18,7 @@ const PostFeed: React.FC<PostFeedProps> = ({ userId }) => {
 
     const [currentPage, setCurrentPage] = useState(1)
     const {allPosts, setAllPosts}= usePostsContext()
-    let { data: posts = [], totalPosts, isLoading } = usePosts(currentPage, 10);
+    let { data: posts = [], totalPosts, isLoading, mutate: mutatePosts } = usePosts(currentPage, 10);
     const hasPosts = useMemo(() => {
         return totalPosts !== currentPage * 10 || totalPosts < currentPage * 10
     }, [totalPosts, currentPage])
@@ -26,9 +26,9 @@ const PostFeed: React.FC<PostFeedProps> = ({ userId }) => {
     console.log(hasPosts)
 
     useEffect(() => {
-        setAllPosts( prev => [...posts, ...prev] );
-        console.log(allPosts)
-      }, [posts, setAllPosts]);
+        setCurrentPage(1)
+        mutatePosts();
+    }, [allPosts])
 
    
 
@@ -41,16 +41,31 @@ const PostFeed: React.FC<PostFeedProps> = ({ userId }) => {
         }
     },[currentPage])
 
+    const fetchBack = useCallback(() => {
+        
+        if(!hasPosts){
+            return null
+        }else{
+            setCurrentPage(prev => prev - 1)
+        }
+    },[currentPage])
+
     
 
     return (
 
 
         <div>
-            {allPosts.map((post: Record<string, any>,) =>
+            <div className="flex my-8 px-4 py-2 w-full flex-row justify-between items-center">
+            <Button disabled={currentPage === 1} onClick={fetchBack} label={isLoading?'Loading': "Previous"} secondary/>
+            {hasPosts && <Button disabled={isLoading} onClick={fetchNext} label={isLoading?'Loading': "Next"} secondary={isLoading}/> }
+
+
+
+            </div>
+            {posts.map((post: Record<string, any>) =>
                 <PostItem userId={userId} key={post.id} post={post} />
             )}
-            {hasPosts && <Button disabled={isLoading} onClick={fetchNext} label={isLoading?'Loading': "Load More"} secondary={isLoading}/> }
         </div>
     )
 }
